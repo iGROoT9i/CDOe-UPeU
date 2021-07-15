@@ -81,7 +81,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "Sy1n");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _services_usuario_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/usuario.service */ "on2l");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
 
 
 
@@ -90,15 +92,88 @@ __webpack_require__.r(__webpack_exports__);
 class AppModule {
 }
 AppModule.ɵfac = function AppModule_Factory(t) { return new (t || AppModule)(); };
-AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]] });
-AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({ providers: [], imports: [[
+AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]] });
+AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjector"]({ providers: [_services_usuario_service__WEBPACK_IMPORTED_MODULE_4__["UsuarioService"]], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
         _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"]] }); })();
+
+
+/***/ }),
+
+/***/ "on2l":
+/*!*********************************************!*\
+  !*** ./src/app/services/usuario.service.ts ***!
+  \*********************************************/
+/*! exports provided: UsuarioService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsuarioService", function() { return UsuarioService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "tyNb");
+
+
+class UsuarioService {
+    constructor(router) {
+        this.router = router;
+        this.tasks = [];
+    }
+    getTasks() {
+        if (localStorage.getItem('usuarios') === null) {
+            this.tasks = [];
+        }
+        else {
+            this.tasks = JSON.parse(localStorage.getItem('usuarios'));
+        }
+        return this.tasks;
+    }
+    login(task) {
+        this.tasks.push(task);
+        let tasks = [];
+        if (localStorage.getItem('usuarios') === null) {
+            tasks = [];
+            tasks.push(task);
+            localStorage.setItem('usuarios', JSON.stringify(tasks));
+            this.router.navigate(['login/ingresar']);
+        }
+        else {
+            tasks = JSON.parse(localStorage.getItem('usuarios'));
+            tasks.push(task);
+            localStorage.setItem('usuarios', JSON.stringify(tasks));
+            this.router.navigate(['login/ingresar']);
+        }
+    }
+    addTask(task) {
+        this.tasks.push(task);
+        let tasks = [];
+        if (localStorage.getItem('tasks') === null) {
+            tasks = [];
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+        else {
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+    }
+    deleteTask(task) {
+        for (let i = 0; i < this.tasks.length; i++) {
+            if (task == this.tasks[i]) {
+                this.tasks.splice(i, 1);
+                localStorage.setItem('tasks', JSON.stringify(this.tasks));
+            }
+        }
+    }
+}
+UsuarioService.ɵfac = function UsuarioService_Factory(t) { return new (t || UsuarioService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"])); };
+UsuarioService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: UsuarioService, factory: UsuarioService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -120,8 +195,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const routes = [
     { path: 'admin', loadChildren: () => __webpack_require__.e(/*! import() | admin-admin-module */ "admin-admin-module").then(__webpack_require__.bind(null, /*! ./admin/admin.module */ "jkDv")).then(m => m.AdminModule) },
-    { path: 'inicio', loadChildren: () => Promise.all(/*! import() | inicio-inicio-module */[__webpack_require__.e("common"), __webpack_require__.e("inicio-inicio-module")]).then(__webpack_require__.bind(null, /*! ./inicio/inicio.module */ "MpVM")).then(m => m.InicioModule) },
-    { path: 'login', loadChildren: () => Promise.all(/*! import() | login-login-module */[__webpack_require__.e("common"), __webpack_require__.e("login-login-module")]).then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginModule) },
+    { path: 'inicio', loadChildren: () => __webpack_require__.e(/*! import() | inicio-inicio-module */ "inicio-inicio-module").then(__webpack_require__.bind(null, /*! ./inicio/inicio.module */ "MpVM")).then(m => m.InicioModule) },
+    { path: 'login', loadChildren: () => __webpack_require__.e(/*! import() | login-login-module */ "login-login-module").then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginModule) },
     { path: '**', redirectTo: 'inicio' }
 ];
 class AppRoutingModule {

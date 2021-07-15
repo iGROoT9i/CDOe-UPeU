@@ -725,8 +725,8 @@ p {
 .header-top-wrapper .header-top-right .header-link a {
   font-family: Exo;
   font-weight: 400;
-  font-size: 13px;
-  color: #d5e97f;
+  font-size: 18px; 
+  color: #808080;
   -webkit-transition: all 0.3s linear;
   -moz-transition: all 0.3s linear;
   -ms-transition: all 0.3s linear;
