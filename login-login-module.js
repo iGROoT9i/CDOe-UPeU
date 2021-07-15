@@ -7619,7 +7619,9 @@ class IngresarComponent {
         let user = JSON.parse(localStorage.getItem("usuarios"));
         if (user.email == this.email) {
             if (user.password == this.password)
-                this.router.navigate(['/admin/perfil']);
+                localStorage.setItem("usuario", user.name);
+            localStorage.setItem("apellido", user.lastname);
+            this.router.navigate(['/admin/perfil']);
         }
         else {
             alert("usuario no registrado");
