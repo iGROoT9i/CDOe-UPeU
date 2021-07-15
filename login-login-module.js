@@ -7366,7 +7366,7 @@ class RegistroComponent {
         else {
             localStorage.setItem('usuarios', JSON.stringify(this.usuario));
         }
-        this.router.navigate(['ingresar']);
+        this.router.navigate(['login/ingresar']);
     }
     get(key) {
         try {
