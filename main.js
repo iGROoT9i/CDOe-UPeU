@@ -120,8 +120,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const routes = [
     { path: 'admin', loadChildren: () => __webpack_require__.e(/*! import() | admin-admin-module */ "admin-admin-module").then(__webpack_require__.bind(null, /*! ./admin/admin.module */ "jkDv")).then(m => m.AdminModule) },
-    { path: 'inicio', loadChildren: () => __webpack_require__.e(/*! import() | inicio-inicio-module */ "inicio-inicio-module").then(__webpack_require__.bind(null, /*! ./inicio/inicio.module */ "MpVM")).then(m => m.InicioModule) },
-    { path: 'login', loadChildren: () => __webpack_require__.e(/*! import() | login-login-module */ "login-login-module").then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginModule) },
+    { path: 'inicio', loadChildren: () => Promise.all(/*! import() | inicio-inicio-module */[__webpack_require__.e("common"), __webpack_require__.e("inicio-inicio-module")]).then(__webpack_require__.bind(null, /*! ./inicio/inicio.module */ "MpVM")).then(m => m.InicioModule) },
+    { path: 'login', loadChildren: () => Promise.all(/*! import() | login-login-module */[__webpack_require__.e("common"), __webpack_require__.e("login-login-module")]).then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginModule) },
     { path: '**', redirectTo: 'inicio' }
 ];
 class AppRoutingModule {
