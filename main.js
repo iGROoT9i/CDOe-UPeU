@@ -123,6 +123,7 @@ class UsuarioService {
     constructor(router) {
         this.router = router;
         this.tasks = [];
+        this.factor = [];
     }
     getTasks() {
         if (localStorage.getItem('usuarios') === null) {
@@ -171,6 +172,21 @@ class UsuarioService {
             }
         }
     }
+    // -----------------------------------factor -------------------------
+    addFactor(task) {
+        this.factor.push(task);
+        let tasks = [];
+        if (localStorage.getItem('factor') === null) {
+            tasks = [];
+            tasks.push(task);
+            localStorage.setItem('factor', JSON.stringify(tasks));
+        }
+        else {
+            tasks = JSON.parse(localStorage.getItem('factor'));
+            tasks.push(task);
+            localStorage.setItem('factor', JSON.stringify(tasks));
+        }
+    }
 }
 UsuarioService.ɵfac = function UsuarioService_Factory(t) { return new (t || UsuarioService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"])); };
 UsuarioService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: UsuarioService, factory: UsuarioService.ɵfac, providedIn: 'root' });
@@ -194,9 +210,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routes = [
-    { path: 'admin', loadChildren: () => __webpack_require__.e(/*! import() | admin-admin-module */ "admin-admin-module").then(__webpack_require__.bind(null, /*! ./admin/admin.module */ "jkDv")).then(m => m.AdminModule) },
+    { path: 'admin', loadChildren: () => Promise.all(/*! import() | admin-admin-module */[__webpack_require__.e("default~admin-admin-module~login-login-module"), __webpack_require__.e("admin-admin-module")]).then(__webpack_require__.bind(null, /*! ./admin/admin.module */ "jkDv")).then(m => m.AdminModule) },
     { path: 'inicio', loadChildren: () => __webpack_require__.e(/*! import() | inicio-inicio-module */ "inicio-inicio-module").then(__webpack_require__.bind(null, /*! ./inicio/inicio.module */ "MpVM")).then(m => m.InicioModule) },
-    { path: 'login', loadChildren: () => __webpack_require__.e(/*! import() | login-login-module */ "login-login-module").then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginModule) },
+    { path: 'login', loadChildren: () => Promise.all(/*! import() | login-login-module */[__webpack_require__.e("default~admin-admin-module~login-login-module"), __webpack_require__.e("login-login-module")]).then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginModule) },
     { path: '**', redirectTo: 'inicio' }
 ];
 class AppRoutingModule {
