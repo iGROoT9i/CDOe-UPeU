@@ -7339,17 +7339,30 @@ function RegistroComponent_div_48_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
+function RegistroComponent_div_49_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 29);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 30);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Email ya esta en uso! ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "button", 31);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} }
 class RegistroComponent {
     constructor(userService, router) {
         this.userService = userService;
         this.router = router;
         this.alert = false;
         this.alert2 = false;
+        this.emailalert = false;
     }
     ngOnInit() { }
     //JSON.stringify(data)
     //this.router.navigate(['login/ingresar']);
     addTask(name, lastname, dni, email, password, passwordc) {
+        this.alert2 = false;
+        this.alert = false;
+        this.emailalert = false;
+        let user = JSON.parse(localStorage.getItem("usuarios"));
         if (name.value == "" || lastname.value == "" || dni.value == "" || email.value == "" || password.value == "" || passwordc.value == "") {
             this.alert2 = true;
         }
@@ -7358,13 +7371,34 @@ class RegistroComponent {
                 this.alert = true;
             }
             else {
-                this.userService.login({
-                    name: name.value,
-                    lastname: lastname.value,
-                    dni: dni.value,
-                    email: email.value,
-                    password: password.value,
-                });
+                if (user == null) {
+                    this.userService.login({
+                        name: name.value,
+                        lastname: lastname.value,
+                        dni: dni.value,
+                        email: email.value,
+                        password: password.value,
+                    });
+                    this.router.navigate(['/login/ingresar']);
+                }
+                else {
+                    user.forEach(element => {
+                        console.log(element.email + " " + email.value);
+                        if (element.email != email.value) {
+                            this.userService.login({
+                                name: name.value,
+                                lastname: lastname.value,
+                                dni: dni.value,
+                                email: email.value,
+                                password: password.value,
+                            });
+                            this.router.navigate(['/login/ingresar']);
+                        }
+                        else {
+                            this.emailalert = true;
+                        }
+                    });
+                }
                 /**
           
                 name.value= '';
@@ -7374,14 +7408,13 @@ class RegistroComponent {
                 password.value= '';
                 passwordc.value= '';
                 */
-                return false;
             }
         }
     }
 }
 RegistroComponent.ɵfac = function RegistroComponent_Factory(t) { return new (t || RegistroComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_usuario_service__WEBPACK_IMPORTED_MODULE_1__["UsuarioService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"])); };
-RegistroComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: RegistroComponent, selectors: [["app-registro"]], decls: 57, vars: 2, consts: [[1, "page-banner"], [1, "page-banner-bg", "bg_cover", 2, "background-image", "url(../../../assets/img/page-banner.jpg)"], [1, "container"], [1, "banner-content", "text-center"], [1, "title"], [1, "login-register"], [1, "row", "justify-content-center"], [1, "col-lg-6"], [1, "login-register-content"], [1, "title", "dfffff"], [1, "login-register-form"], [3, "ngSubmit"], [1, "single-form"], ["type", "text", "name", "name"], ["name", ""], ["type", "text", "name", "lastname"], ["lastname", ""], ["type", "email", "name", "email"], ["email", ""], ["type", "text", "name", "dni"], ["dni", ""], ["type", "password", "name", "password"], ["password", ""], ["type", "password", "name", "passwordc"], ["passwordc", ""], [1, "checkbox"], ["class", "alert", 4, "ngIf"], [1, "main-btn", "btn-block"], ["routerLink", "/login/ingresar", 1, "main-btn", "main-btn-2", "btn-block"], [1, "alert"], ["role", "alert", 1, "alert", "alert-warning", "alert-dismissible", "fade", "show"], ["type", "button", "data-bs-dismiss", "alert", "aria-label", "Close", 1, "btn-close"]], template: function RegistroComponent_Template(rf, ctx) { if (rf & 1) {
-        const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+RegistroComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: RegistroComponent, selectors: [["app-registro"]], decls: 58, vars: 3, consts: [[1, "page-banner"], [1, "page-banner-bg", "bg_cover", 2, "background-image", "url(../../../assets/img/page-banner.jpg)"], [1, "container"], [1, "banner-content", "text-center"], [1, "title"], [1, "login-register"], [1, "row", "justify-content-center"], [1, "col-lg-6"], [1, "login-register-content"], [1, "title", "dfffff"], [1, "login-register-form"], [3, "ngSubmit"], [1, "single-form"], ["type", "text", "name", "name"], ["name", ""], ["type", "text", "name", "lastname"], ["lastname", ""], ["type", "email", "name", "email"], ["email", ""], ["type", "text", "name", "dni"], ["dni", ""], ["type", "password", "name", "password"], ["password", ""], ["type", "password", "name", "passwordc"], ["passwordc", ""], [1, "checkbox"], ["class", "alert", 4, "ngIf"], [1, "main-btn", "btn-block"], [1, "main-btn", "main-btn-2", "btn-block"], [1, "alert"], ["role", "alert", 1, "alert", "alert-warning", "alert-dismissible", "fade", "show"], ["type", "button", "data-bs-dismiss", "alert", "aria-label", "Close", 1, "btn-close"]], template: function RegistroComponent_Template(rf, ctx) { if (rf & 1) {
+        const _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "section", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
@@ -7403,7 +7436,7 @@ RegistroComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "form", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function RegistroComponent_Template_form_ngSubmit_14_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r8); const _r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](19); const _r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](24); const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](34); const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](29); const _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](39); const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](44); return ctx.addTask(_r0, _r1, _r3, _r2, _r4, _r5); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function RegistroComponent_Template_form_ngSubmit_14_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r9); const _r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](19); const _r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](24); const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](34); const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](29); const _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](39); const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](44); return ctx.addTask(_r0, _r1, _r3, _r2, _r4, _r5); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "div", 12);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "label");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](17, "Nombre completo *");
@@ -7445,17 +7478,18 @@ RegistroComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](47, RegistroComponent_div_47_Template, 4, 0, "div", 26);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](48, RegistroComponent_div_48_Template, 4, 0, "div", 26);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](49, "div", 12);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](50, "button", 27);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](51, "Registrar");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](49, RegistroComponent_div_49_Template, 4, 0, "div", 26);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](50, "div", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](51, "button", 27);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](52, "Registrar");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](52, "div", 12);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](53, "label");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](54, "Ya tienes una cuenta?");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](53, "div", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](54, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](55, "Ya tienes una cuenta?");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](55, "a", 28);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](56, "Inicia Sesi\u00F3n");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](56, "a", 28);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](57, "Inicia Sesi\u00F3n");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -7470,7 +7504,9 @@ RegistroComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.alert);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.alert2);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgForm"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"]], styles: [".dfffff[_ngcontent-%COMP%]{\r\n    color: #992e45;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlZ2lzdHJvLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0FBQ2xCIiwiZmlsZSI6InJlZ2lzdHJvLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZGZmZmZme1xyXG4gICAgY29sb3I6ICM5OTJlNDU7XHJcbn0iXX0= */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.emailalert);
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgForm"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"]], styles: [".dfffff[_ngcontent-%COMP%]{\r\n    color: #992e45;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlZ2lzdHJvLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0FBQ2xCIiwiZmlsZSI6InJlZ2lzdHJvLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZGZmZmZme1xyXG4gICAgY29sb3I6ICM5OTJlNDU7XHJcbn0iXX0= */"] });
 
 
 /***/ }),
@@ -7549,27 +7585,28 @@ class IngresarComponent {
         this.alert = false;
         this.email1 = false;
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     entrar() {
-        let user = JSON.parse(localStorage.getItem("usuarios"));
+        let user = JSON.parse(localStorage.getItem('usuarios'));
         //for (let i = 0; i < user.length + 1; i++) {
         //}
-        user.forEach(element => {
+        user.forEach((element) => {
             if (element.email == this.email) {
                 if (element.password == this.password) {
-                    localStorage.setItem("usuario", element.name);
+                    localStorage.setItem('usuario', element.email);
+                    this.email1 = true;
                     this.router.navigate(['/admin/perfil']);
                 }
                 else {
-                    this.email1 = true;
                 }
             }
             else {
-                this.email1 = true;
             }
         });
         if (this.email1) {
+            this.alert = false;
+        }
+        else {
             this.alert = true;
         }
     }
