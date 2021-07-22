@@ -34,7 +34,10 @@ const uploadd = async ({file}) => {
 
     let storageRef = await uploadd({file});
 
+    
       return addDoc({ collection: 'file', data: {path: storageRef.fullPath}});
+
+
       
   }
 
@@ -94,6 +97,8 @@ var firebaseConfig = {
       let file = fileInput.files[0];
 
       publish({file});
+
+      window.alert("Arhivo Subido");
   }
 
 
